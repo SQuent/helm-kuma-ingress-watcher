@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name | default "kuma-ingress-watcher" }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.deployment.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ "kuma-ingress-watcher" }}
+  template:
+    metadata:
+      labels:
+        app: {{ "kuma-ingress-watcher" }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+      - name: controller
+        ports:
+        - containerPort: 4025
+          protocol: TCP
+        image: "{{ .Values.deployment.imagename }}:{{ .Values.deployment.imagetag | default .Chart.AppVersion }}"
+        stdin: true
+        env:
+        - name: UPTIME_KUMA_URL
+          value: {{ .Values.uptimeKuma.url }}
+        - name: UPTIME_KUMA_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.uptimeKuma.credentialsSecret }}
+              key: user
+        - name: UPTIME_KUMA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.uptimeKuma.credentialsSecret }}
+              key: password
