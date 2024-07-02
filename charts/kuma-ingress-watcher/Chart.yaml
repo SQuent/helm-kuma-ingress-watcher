@@ -3,4 +3,4 @@ name: kuma-ingress-watcher
 description: A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to automatically monitor Traefik Ingress routes in a Kubernetes cluster and create corresponding monitors in Uptime Kuma.
 type: application
 version: 0.1.0
-appVersion: "1.0.4"
+appVersion: "1.1.1"
