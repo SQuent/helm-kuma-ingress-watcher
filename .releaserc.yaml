@@ -1,0 +1,18 @@
+branches:
+  - main
+
+plugins:
+  - 
+    - "@semantic-release/commit-analyzer"
+    - preset: "angular"
+  - "@semantic-release/release-notes-generator"
+  - 
+    - "@codedependant/semantic-release-helm3"
+    - chartPath: "."
+    - registry: "squent/helm-kuma-ingress-watcher"
+    - onlyUpdateVersion: true
+    - populateChangelog: true
+
+  - "@semantic-release/changelog"
+  - "@semantic-release/git"
+  - "@semantic-release/github"
