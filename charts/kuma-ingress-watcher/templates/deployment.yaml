@@ -19,9 +19,11 @@ spec:
         ports:
         - containerPort: 4025
           protocol: TCP
-        image: "{{ .Values.deployment.image.name | default "squent/kuma-ingress-watcher"  }}:{{ .Values.deployment.imagetag | default .Chart.AppVersion }}"
+        image: "{{ .Values.deployment.image.name | default "squent/kuma-ingress-watcher" }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         stdin: true
         env:
+        - name: LOG_LEVEL
+          value: {{ .Values.deployment.loglevel }}
         - name: UPTIME_KUMA_URL
           value: {{ .Values.uptimeKuma.url }}
         - name: UPTIME_KUMA_USER
