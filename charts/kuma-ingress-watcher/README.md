@@ -1,6 +1,6 @@
 # kuma-ingress-watcher
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.2](https://img.shields.io/badge/AppVersion-1.2.2-informational?style=flat-square)
 
 **for the moment, the controller only manages IngressRoute objects but if people are interested in the project then other objects like ingress could be added**
 
@@ -26,8 +26,8 @@ A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to
 
     ````
     data:
-        password: admin
-        user: toto
+        user: alice
+        password: alice
     ````
 
 ## Values
@@ -39,6 +39,7 @@ A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to
 | configMap.name | string | `"controller-scripts"` |  |
 | deployment.image.name | string | `"squent/kuma-ingress-watcher"` |  |
 | deployment.label | string | `"kuma-ingress-watcher"` |  |
+| deployment.loglevel | string | `"INFO"` |  |
 | deployment.name | string | `"kuma-ingress-watcher"` |  |
 | deployment.replicas | int | `1` |  |
 | namespace | string | `"monitoring"` |  |
