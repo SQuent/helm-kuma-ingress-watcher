@@ -3,6 +3,28 @@ entries:
   kuma-ingress-watcher:
   - apiVersion: v2
     appVersion: 1.2.2
+    created: "2024-07-04T11:43:53.878849931Z"
+    description: A Helm chart for Kuma ingress watcher. it is a kubernetes controller
+      designed to automatically monitor Traefik Ingress routes in a Kubernetes cluster
+      and create corresponding monitors in Uptime Kuma.
+    digest: 612c08d88bc523f866a2e343ae780ea625bd0821f7ccf9d9bdea06444d6d8c8c
+    home: https://github.com/SQuent/helm-kuma-ingress-watcher
+    keywords:
+    - IngressRoute
+    - uptime-Kuma
+    - Traefik
+    maintainers:
+    - email: q.sallio@gmail.com
+      name: Quentin SALLIO
+    name: kuma-ingress-watcher
+    sources:
+    - https://github.com/SQuent/kuma-ingress-watcher
+    type: application
+    urls:
+    - https://github.com/SQuent/helm-kuma-ingress-watcher/releases/download/kuma-ingress-watcher-1.0.1/kuma-ingress-watcher-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.2.2
     created: "2024-07-04T11:03:39.63463206Z"
     description: A Helm chart for Kuma ingress watcher. it is a kubernetes controller
       designed to automatically monitor Traefik Ingress routes in a Kubernetes cluster
@@ -45,4 +67,4 @@ entries:
     urls:
     - https://github.com/SQuent/helm-kuma-ingress-watcher/releases/download/kuma-ingress-watcher-0.1.1/kuma-ingress-watcher-0.1.1.tgz
     version: 0.1.1
-generated: "2024-07-04T11:03:39.634644844Z"
+generated: "2024-07-04T11:43:53.878885347Z"
