@@ -5,6 +5,11 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.deployment.replicas | default 1 }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
   selector:
     matchLabels:
       app: {{ "kuma-ingress-watcher" }}
@@ -23,9 +28,15 @@ spec:
         stdin: true
         env:
         - name: LOG_LEVEL
-          value: {{ .Values.deployment.loglevel }}
+          value: "{{ .Values.deployment.logLevel }}"
         - name: UPTIME_KUMA_URL
-          value: {{ .Values.uptimeKuma.url }}
+          value: "{{ .Values.uptimeKuma.url }}"
+        - name: WATCH_INTERVAL
+          value: "{{ .Values.kumaIngressWatcher.watchInterval | default `10` }}"
+        - name: WATCH_INGRESSROUTES
+          value: "{{ .Values.kumaIngressWatcher.ingressRoute.enabled }}"
+        - name: WATCH_INGRESS
+          value: "{{ .Values.kumaIngressWatcher.ingress.enabled }}"
         - name: UPTIME_KUMA_USER
           valueFrom:
             secretKeyRef:

@@ -3,9 +3,16 @@ kind: ClusterRole
 metadata:
   name: {{ .Values.clusterRole.name }}
 rules:
-- apiGroups: ["traefik.containo.us"]
-  resources: ["ingressroutes"]
-  verbs: ["get", "list", "watch"]
-- apiGroups: [""]
-  resources: ["namespaces"]
-  verbs: ["get", "list"]
+  {{- if .Values.kumaIngressWatcher.ingress.enabled }}
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch"]
+  {{- end }}
+  {{- if .Values.kumaIngressWatcher.ingressRoute.enabled }}
+  - apiGroups: ["traefik.containo.us"]
+    resources: ["ingressroutes"]
+    verbs: ["get", "list", "watch"]
+  {{- end }}
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list"]

@@ -1,10 +1,8 @@
 # kuma-ingress-watcher
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.2](https://img.shields.io/badge/AppVersion-1.2.2-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
-**for the moment, the controller only manages IngressRoute objects but if people are interested in the project then other objects like ingress could be added**
-
-A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to automatically monitor Traefik Ingress routes in a Kubernetes cluster and create corresponding monitors in Uptime Kuma.
+A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to automatically monitor Traefik Ingress routes and/or kubernetes Ingress object in a Kubernetes cluster and create corresponding monitors in Uptime Kuma.
 
 **Homepage:** <https://github.com/SQuent/helm-kuma-ingress-watcher>
 
@@ -39,9 +37,12 @@ A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to
 | configMap.name | string | `"controller-scripts"` |  |
 | deployment.image.name | string | `"squent/kuma-ingress-watcher"` |  |
 | deployment.label | string | `"kuma-ingress-watcher"` |  |
-| deployment.loglevel | string | `"INFO"` |  |
+| deployment.logLevel | string | `"INFO"` |  |
 | deployment.name | string | `"kuma-ingress-watcher"` |  |
 | deployment.replicas | int | `1` |  |
+| kumaIngressWatcher.ingress.enabled | bool | `true` |  |
+| kumaIngressWatcher.ingressRoute.enabled | bool | `false` |  |
+| kumaIngressWatcher.watchInterval | int | `10` |  |
 | namespace | string | `"monitoring"` |  |
 | resources.limits.cpu | string | `"500m"` |  |
 | resources.limits.memory | string | `"128Mi"` |  |
