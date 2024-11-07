@@ -1,6 +1,6 @@
 # kuma-ingress-watcher
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.5.0](https://img.shields.io/badge/AppVersion-1.5.0-informational?style=flat-square)
 
 A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to automatically monitor Traefik Ingress routes and/or kubernetes Ingress object in a Kubernetes cluster and create corresponding monitors in Uptime Kuma.
 
@@ -19,7 +19,7 @@ A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to
 ## Prerequistes
 
 - Uptime-Kuma instance on kubernetes configured with the creation of at least one user.
-- Traefik deployed with IngressRoute crds
+- If you will watch Ingress routes, you need to have Traefik deployed with IngressRoute crds
 - A secret in the same namespace with in the data field:
 
     ````
@@ -35,7 +35,7 @@ A Helm chart for Kuma ingress watcher. it is a kubernetes controller designed to
 | clusterRole.name | string | `"ingress-reader"` |  |
 | clusterRoleBinding.name | string | `"kuma-ingress-reader-binding"` |  |
 | configMap.name | string | `"controller-scripts"` |  |
-| deployment.image.name | string | `"squent/kuma-ingress-watcher"` |  |
+| deployment.image.name | string | `"ghcr.io/squent/kuma-ingress-watcher"` |  |
 | deployment.label | string | `"kuma-ingress-watcher"` |  |
 | deployment.logLevel | string | `"INFO"` |  |
 | deployment.name | string | `"kuma-ingress-watcher"` |  |

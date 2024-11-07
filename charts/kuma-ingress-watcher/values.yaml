@@ -24,7 +24,7 @@ deployment:
   replicas: 1
   label: kuma-ingress-watcher
   image:
-    name: squent/kuma-ingress-watcher
+    name: ghcr.io/squent/kuma-ingress-watcher
   logLevel: INFO
 
 uptimeKuma:
