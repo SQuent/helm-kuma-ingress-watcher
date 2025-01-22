@@ -35,6 +35,8 @@ spec:
           value: "{{ .Values.kumaIngressWatcher.watchInterval | default `10` }}"
         - name: WATCH_INGRESSROUTES
           value: "{{ .Values.kumaIngressWatcher.ingressRoute.enabled }}"
+        - name: USE_TRAEFIK_V3_CRD_GROUP
+          value: "{{ .Values.kumaIngressWatcher.ingressRoute.traefikv3 }}"
         - name: WATCH_INGRESS
           value: "{{ .Values.kumaIngressWatcher.ingress.enabled }}"
         - name: UPTIME_KUMA_USER

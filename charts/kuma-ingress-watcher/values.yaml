@@ -2,6 +2,7 @@ kumaIngressWatcher:
   watchInterval: 10
   ingressRoute:
     enabled: False
+    traefikv3: False
   ingress:
     enabled: True
 
