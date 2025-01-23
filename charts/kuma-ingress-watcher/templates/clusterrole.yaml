@@ -9,7 +9,7 @@ rules:
     verbs: ["get", "list", "watch"]
   {{- end }}
   {{- if .Values.kumaIngressWatcher.ingressRoute.enabled }}
-  - apiGroups: ["traefik.containo.us"]
+  - apiGroups: ["traefik.containo.us", "traefik.io"]
     resources: ["ingressroutes"]
     verbs: ["get", "list", "watch"]
   {{- end }}
