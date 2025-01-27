@@ -1,0 +1,10 @@
+{{- if .Values.kumaIngressWatcher.fileBasedMonitors.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-monitors
+  namespace: {{ .Values.namespace }}
+data:
+  monitors.yaml: |
+    {{- toYaml .Values.kumaIngressWatcher.fileBasedMonitors.monitors | nindent 4 }}
+{{- end }}
