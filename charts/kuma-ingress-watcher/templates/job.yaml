@@ -1,25 +1,16 @@
-{{- if or .Values.kumaIngressWatcher.ingress.enabled .Values.kumaIngressWatcher.ingressRoute.enabled }}
-apiVersion: apps/v1
-kind: Deployment
+{{- if and .Values.kumaIngressWatcher.fileBasedMonitors.enabled (not .Values.kumaIngressWatcher.ingress.enabled) (not .Values.kumaIngressWatcher.ingressRoute.enabled) }}
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: {{ .Values.deployment.name | default "kuma-ingress-watcher" }}
+  name: {{ .Values.deployment.name | default "kuma-ingress-watcher-job" }}
   namespace: {{ .Values.namespace }}
 spec:
-  replicas: {{ .Values.deployment.replicas | default 1 }}
-  strategy:
-    rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 1
-    type: RollingUpdate
-  selector:
-    matchLabels:
-      app: {{ "kuma-ingress-watcher" }}
   template:
     metadata:
       labels:
         app: {{ "kuma-ingress-watcher" }}
     spec:
-      serviceAccountName: {{ .Values.serviceAccount.name }}
+      restartPolicy: Never
       containers:
       - name: controller
         ports:
@@ -32,14 +23,16 @@ spec:
           value: "{{ .Values.deployment.logLevel }}"
         - name: UPTIME_KUMA_URL
           value: "{{ .Values.uptimeKuma.url }}"
-        - name: WATCH_INTERVAL
-          value: "{{ .Values.kumaIngressWatcher.watchInterval | default `10` }}"
         - name: WATCH_INGRESSROUTES
           value: "{{ .Values.kumaIngressWatcher.ingressRoute.enabled }}"
-        - name: USE_TRAEFIK_V3_CRD_GROUP
-          value: "{{ .Values.kumaIngressWatcher.ingressRoute.traefikv3 }}"
         - name: WATCH_INGRESS
           value: "{{ .Values.kumaIngressWatcher.ingress.enabled }}"
+        - name: WATCH_INTERVAL
+          value: "{{ .Values.kumaIngressWatcher.watchInterval | default `10` }}"
+        - name: ENABLE_FILE_MONITOR
+          value: "{{ .Values.kumaIngressWatcher.fileBasedMonitors.enabled | default `false` }}"
+        - name: MONITORS_FILE_PATH
+          value: "{{ .Values.kumaIngressWatcher.fileBasedMonitors.monitorsFilePath | default `/etc/kuma-controller/monitors.yaml` }}"
         - name: UPTIME_KUMA_USER
           valueFrom:
             secretKeyRef:
@@ -50,20 +43,12 @@ spec:
             secretKeyRef:
               name: {{ .Values.uptimeKuma.credentialsSecret }}
               key: password
-        - name: ENABLE_FILE_MONITOR
-          value: "{{ .Values.kumaIngressWatcher.fileBasedMonitors.enabled | default `false` }}"
-        - name: MONITORS_FILE_PATH
-          value: "{{ .Values.kumaIngressWatcher.fileBasedMonitors.monitorsFilePath | default `/etc/kuma/monitors.yaml` }}"
-        {{- if .Values.kumaIngressWatcher.fileBasedMonitors.enabled }}
         volumeMounts:
         - name: monitors-file
-          mountPath: "{{ .Values.kumaIngressWatcher.fileBasedMonitors.monitorsFilePath | default `/etc/kuma/monitors.yaml` }}"
+          mountPath: "{{ .Values.kumaIngressWatcher.fileBasedMonitors.monitorsFilePath | default `/etc/kuma-controller/monitors.yaml` }}"
           subPath: monitors.yaml
-        {{- end }}
-      {{- if .Values.kumaIngressWatcher.fileBasedMonitors.enabled }}
       volumes:
       - name: monitors-file
         configMap:
           name: {{ .Release.Name }}-monitors
-      {{- end }}
 {{- end }}

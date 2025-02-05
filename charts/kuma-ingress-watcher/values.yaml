@@ -1,10 +1,23 @@
 kumaIngressWatcher:
   watchInterval: 10
   ingressRoute:
-    enabled: False
+    enabled: True
     traefikv3: False
   ingress:
-    enabled: True
+    enabled: False
+  fileBasedMonitors:
+    enabled: False
+    monitorsFilePath: "/etc/kuma-controller/monitors.yaml"
+    monitors:
+    #- name: "homie"
+    #  type: "http"
+    #  url: "https://homepage-192-168-1-28.traefik.me/"
+    #  interval: 60
+    #  - name: "another-monitor"
+    #    type: "http"
+    #    host: "example-host"
+    #    port: 8080
+    #    interval: 120
 
 namespace: monitoring
 
@@ -31,9 +44,6 @@ deployment:
 uptimeKuma:
   url: "http://uptime-kuma:3001"
   credentialsSecret: uptime-kuma-credentials
-
-configMap:
-  name: controller-scripts
 
 resources:
   requests:
