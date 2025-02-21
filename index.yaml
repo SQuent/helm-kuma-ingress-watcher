@@ -159,4 +159,26 @@ entries:
     urls:
     - https://github.com/SQuent/helm-kuma-ingress-watcher/releases/download/kuma-ingress-watcher-0.1.1/kuma-ingress-watcher-0.1.1.tgz
     version: 0.1.1
-generated: "2025-02-05T11:09:42.744532275Z"
+  stressed-pod:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-02-21T15:16:28.35675019Z"
+    description: A Helm chart for deploying Stressed Pod - a Kubernetes pod testing
+      tool
+    digest: f6f14a4c37dd4fe6b7c88d3d0b40590801216ecfac88dcbd3ed96bd150311839
+    home: https://github.com/SQuent/helm-charts
+    keywords:
+    - Kubernetes
+    - testing
+    - api
+    maintainers:
+    - email: q.sallio@gmail.com
+      name: Quentin SALLIO
+    name: stressed-pod
+    sources:
+    - https://github.com/SQuent/stressed-pod
+    type: application
+    urls:
+    - https://github.com/SQuent/helm-charts/releases/download/stressed-pod-1.0.0/stressed-pod-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-02-21T15:16:28.356774706Z"
