@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "stressed-pod.fullname" . }}-config
+  labels:
+    {{- include "stressed-pod.labels" . | nindent 4 }}
+data:
+  # CPU Load Configuration
+  ENABLE_DYNAMIC_CPU_LOAD: "{{ .Values.config.cpuLoad.dynamic.enabled }}"
+  INITIAL_CPU_LOAD: "{{ .Values.config.cpuLoad.dynamic.initial }}"
+  FINAL_CPU_LOAD: "{{ .Values.config.cpuLoad.dynamic.final }}"
+  CPU_LOAD_DURATION: "{{ .Values.config.cpuLoad.dynamic.duration }}"
+  STOP_CPU_LOAD_AT_END: "{{ .Values.config.cpuLoad.dynamic.stopAtEnd }}"
+
+  # Memory Load Configuration
+  ENABLE_DYNAMIC_MEMORY_LOAD: "{{ .Values.config.memoryLoad.dynamic.enabled }}"
+  INITIAL_MEMORY_LOAD: "{{ .Values.config.memoryLoad.dynamic.initial }}"
+  FINAL_MEMORY_LOAD: "{{ .Values.config.memoryLoad.dynamic.final }}"
+  MEMORY_LOAD_DURATION: "{{ .Values.config.memoryLoad.dynamic.duration }}"
+  STOP_MEMORY_LOAD_AT_END: "{{ .Values.config.memoryLoad.dynamic.stopAtEnd }}"
+
+  # Logging Configuration
+  ENABLE_AUTOMATIC_LOGS: "{{ .Values.config.logging.enabled }}"
+  LOG_MESSAGE: "{{ .Values.config.logging.message }}"
+  LOG_LEVEL: "{{ .Values.config.logging.level }}"
+  LOG_SERVICE: "{{ .Values.config.logging.service }}"
+  LOG_FORMAT: "{{ .Values.config.logging.format }}"
+  LOG_INTERVAL: "{{ .Values.config.logging.interval }}"
+  LOG_DURATION: "{{ .Values.config.logging.duration }}"
+
+  # Probe Configuration
+  READINESS_STATUS: "{{ .Values.config.probes.readinessStatus }}"
+  LIVENESS_STATUS: "{{ .Values.config.probes.livenessStatus }}"
+
+  # System Configuration
+  ENABLE_AUTO_TERMINATION: "{{ .Values.config.system.autoTermination.enabled }}"
+  AUTO_TERMINATION_DELAY: "{{ .Values.config.system.autoTermination.delay }}"
+
+  # Pod Info
+  POD_NAME: "{{ .Release.Name }}"
+  POD_NAMESPACE: "{{ .Release.Namespace }}" 
