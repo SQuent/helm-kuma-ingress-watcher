@@ -1,0 +1,75 @@
+ # Image configuration
+image:
+  repository: ghcr.io/squent/stressed-pod
+  pullPolicy: IfNotPresent
+
+# Deployment configuration
+deployment:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8000
+
+# HPA configuration
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+# Application configuration
+config:
+  # CPU Load Configuration
+  cpuLoad:
+    enabled: false
+    dynamic:
+      enabled: false
+      initial: 0
+      final: 0.5
+      duration: 60
+      stopAtEnd: true
+
+  # Memory Load Configuration
+  memoryLoad:
+    enabled: false
+    dynamic:
+      enabled: false
+      initial: 0
+      final: 256
+      duration: 60
+      stopAtEnd: true
+
+  # Logging Configuration
+  logging:
+    enabled: false
+    message: "Automatic log message"
+    level: "info"
+    service: "auto-logger"
+    format: "json"
+    interval: 5
+    duration: 60
+
+  # Probe Configuration
+  probes:
+    readinessStatus: "SUCCESS"
+    livenessStatus: "SUCCESS"
+
+  # System Configuration
+  system:
+    autoTermination:
+      enabled: false
+      delay: 300
+
+# Optional name override
+nameOverride: ""
+fullnameOverride: ""
